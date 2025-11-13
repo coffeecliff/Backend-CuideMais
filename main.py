@@ -2,7 +2,7 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from core.database import engine, Base
-from routers import auth, patients, psychologists
+from routers import auth, appointments, patients, psychologists, requests, reports, ml_analysis
 from dotenv import load_dotenv
 
 # Carrega variáveis de ambiente
@@ -29,13 +29,16 @@ app.add_middleware(
 
 # Inclui os routers
 app.include_router(auth.router)
+app.include_router(appointments.router)
 app.include_router(patients.router)
 app.include_router(psychologists.router)
-
+app.include_router(requests.router)
+app.include_router(reports.router)
+app.include_router(ml_analysis.router)
 
 @app.get("/")
 async def root():
-    return {"message": "Cuide+ API - Sistema de Agendamento Psicológico"}
+    return {"message": "Lunysse API - Sistema de Agendamento Psicológico"}
 
 @app.get("/health")
 async def health_check():
